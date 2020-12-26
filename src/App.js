@@ -16,7 +16,7 @@ function App({ watch, settings }) {
     lng: 30.33
   });
 
-  const [zoom, setZoom] = useState(11);
+  const [zoom, setZoom] = useState(16);
 
   const [marker, setMarker] = useState({
     lat: 23.955413,
