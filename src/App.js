@@ -59,12 +59,12 @@ function App({ watch, settings }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
-      <div style={{ flex: '0 0 30%' }}>
+      <div style={{ flex: '0 0 30%', height: '30vh' }}>
         <Demo watch />
 
       </div>
 
-      <div style={{ minHeight: '500px', width: '100%', flex: '0 0 70%' }}>
+      <div style={{ height: '70vh', width: '100%', flex: '0 0 70%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyCvv_c6oudIDXsjU5bVR7Y3uL_2mK1NcfU' }}
           //defaultCenter={center}
