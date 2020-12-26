@@ -30,7 +30,7 @@ export const Demo = ({ watch, settings }) => {
                 speed: {speed}<br />
                 error: {error}
                 <br />
-                <span style={{ color: 'red' }}>Godview is an underconstruction geolocation tracking app engineered by Shamim Ferdous</span>
+                <span style={{ color: 'red' }}>Godview is an underconstruction geolocation tracking app engineered by Shamim Ferdous!</span>
             </code>
         </>
     );

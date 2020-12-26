@@ -59,12 +59,12 @@ function App({ watch, settings }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
-      <div style={{ flex: '0 0 30%', height: '30vh' }}>
+      <div style={{ height: '30vh' }}>
         <Demo watch />
 
       </div>
 
-      <div style={{ height: '70vh', width: '100%', flex: '0 0 70%' }}>
+      <div style={{ height: '70vh', width: '100%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyCvv_c6oudIDXsjU5bVR7Y3uL_2mK1NcfU' }}
           //defaultCenter={center}
@@ -90,6 +90,6 @@ function App({ watch, settings }) {
 export default App;
 
 
-const AnyReactComponent = ({ text }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> Your Location </div>;
+const AnyReactComponent = ({ text }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> My Location </div>;
 
 
