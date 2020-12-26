@@ -64,7 +64,7 @@ function App({ watch, settings }) {
 
       </div>
 
-      <div style={{ height: '70vh', width: '100%' }}>
+      <div style={{ height: '700px', width: '100%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyCvv_c6oudIDXsjU5bVR7Y3uL_2mK1NcfU' }}
           //defaultCenter={center}
