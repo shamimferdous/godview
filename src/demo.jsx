@@ -29,6 +29,8 @@ export const Demo = ({ watch, settings }) => {
                 accuracy: {accuracy && `${accuracy}m`}<br />
                 speed: {speed}<br />
                 error: {error}
+                <br />
+                <span style={{ color: 'red' }}>Godview is an underconstruction geolocation tracking app engineered by Shamim Ferdous</span>
             </code>
         </>
     );

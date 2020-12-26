@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.dot {
+  font-weight: 900;
+  font-size: 14px;
+  /* width: 15px;
+  height: 15px;
+  content: "";
+  background: red; */
+}

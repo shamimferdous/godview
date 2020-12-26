@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Demo } from './demo';
 import { usePosition } from './custom-hooks/usePosition';
+import {
+  Badge
+} from 'antd';
 
 function App({ watch, settings }) {
 
@@ -34,6 +37,10 @@ function App({ watch, settings }) {
   useEffect(() => {
 
     console.log(`Timestamp was changed`);
+    setMarker({
+      lat: latitude,
+      lng: longitude
+    })
 
     // navigator?.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lng } }) => {
     //   const pos = { lat, lng }
@@ -50,7 +57,7 @@ function App({ watch, settings }) {
 
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
 
       <div style={{ flex: '0 0 50%' }}>
         <Demo watch />
@@ -83,6 +90,6 @@ function App({ watch, settings }) {
 export default App;
 
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> Your Location </div>;
 
 
