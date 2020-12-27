@@ -103,7 +103,7 @@ const Transporter = ({ watch, settings, location }) => {
                             lat={latitude}
                             lng={longitude}
                             info={latitude}
-                            text={marker.lat + ', ' + marker.lng + ', ' + timestamp}
+                            text={marker.lat + ', ' + marker.lng}
                         />
                     </GoogleMap>
                 </div>
@@ -123,4 +123,4 @@ Transporter.propTypes = {
 }
 
 
-const AnyReactComponent = ({ text, info }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} {info} </div>;
+const AnyReactComponent = ({ text, info }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} </div>;
