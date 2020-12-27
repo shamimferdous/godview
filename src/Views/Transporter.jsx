@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { usePosition } from '../custom-hooks/usePosition';
 import GoogleMap from 'google-map-react';
+import PropTypes from 'prop-types';
 // import io from 'socket.io-client';
 // const socket = io('http://localhost:4000');
 
@@ -29,7 +30,7 @@ const Transporter = ({ watch, settings }) => {
         accuracy,
         speed,
         error,
-    } = usePosition(watch, settings);
+    } = usePosition(true, settings);
 
 
     useEffect(() => {
@@ -91,6 +92,12 @@ const Transporter = ({ watch, settings }) => {
 }
 
 export default Transporter;
+
+
+Transporter.propTypes = {
+    watch: PropTypes.bool,
+    settings: PropTypes.object,
+}
 
 
 const AnyReactComponent = ({ text, info }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} {info} </div>;
