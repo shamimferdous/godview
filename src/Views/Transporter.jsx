@@ -5,10 +5,10 @@ import {
 import { usePosition } from '../custom-hooks/usePosition';
 import GoogleMap from 'google-map-react';
 import PropTypes from 'prop-types';
-// import io from 'socket.io-client';
-// const socket = io('http://localhost:4000');
+import io from 'socket.io-client';
+const socket = io('https://godview-server.herokuapp.com');
 
-const Transporter = ({ watch, settings }) => {
+const Transporter = ({ watch, settings, location }) => {
 
 
     const [center, setCenter] = useState({
@@ -35,11 +35,34 @@ const Transporter = ({ watch, settings }) => {
 
     useEffect(() => {
 
+        let roomId = location.search.substring(1);
+        socket.emit('join-room', roomId);
+
+
+        return () => {
+            socket.on('disconnect');
+        }
+    }, []);
+
+
+    useEffect(() => {
+
         console.log(`Location was updated!`);
         setMarker({
             lat: latitude,
             lng: longitude
         })
+
+
+        let data = {
+            lat: latitude,
+            lng: longitude,
+            timestamp: timestamp
+        }
+
+        let roomId = location.search.substring(1);
+        socket.emit('position', roomId, data);
+
 
     }, [timestamp, latitude, longitude]);
 
