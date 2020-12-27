@@ -5,8 +5,8 @@ import {
 import { usePosition } from '../custom-hooks/usePosition';
 import { Demo } from '../demo';
 import GoogleMap from 'google-map-react';
-import io from 'socket.io-client';
-const socket = io('http://localhost:4000');
+// import io from 'socket.io-client';
+// const socket = io('http://localhost:4000');
 
 const Transporter = ({ watch, settings }) => {
 
@@ -41,11 +41,18 @@ const Transporter = ({ watch, settings }) => {
             lng: longitude
         })
 
-    }, [timestamp]);
+    }, [timestamp, latitude, longitude]);
 
 
+    const shamimBhai = () => {
+        setMarker({
+            lat: '1234',
+            lng: '213212'
+        })
+    }
     return (
         <>
+            <h1 onClick={shamimBhai}>The transporter page</h1>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
                 <div style={{ height: '30vh' }}>
@@ -63,7 +70,7 @@ const Transporter = ({ watch, settings }) => {
                         <AnyReactComponent
                             lat={latitude}
                             lng={longitude}
-                            text={marker.lat + ', ' + marker.lng}
+                            text={marker.lat + ', ' + marker.lng + ', ' + timestamp}
                         />
                     </GoogleMap>
                 </div>
