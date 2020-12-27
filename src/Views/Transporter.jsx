@@ -3,7 +3,6 @@ import {
     Badge
 } from 'antd';
 import { usePosition } from '../custom-hooks/usePosition';
-import { Demo } from '../demo';
 import GoogleMap from 'google-map-react';
 // import io from 'socket.io-client';
 // const socket = io('http://localhost:4000');
@@ -52,11 +51,20 @@ const Transporter = ({ watch, settings }) => {
     }
     return (
         <>
-            <h1 onClick={shamimBhai}>The transporter page</h1>
+            <h1 onClick={shamimBhai}>The new transporter page {marker.lat} , {marker.lng} </h1>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
                 <div style={{ height: '30vh' }}>
-                    <Demo watch />
+                    <code>
+                        latitude: {latitude}<br />
+                    longitude: {longitude}<br />
+                    timestamp: {timestamp}<br />
+                    accuracy: {accuracy && `${accuracy}m`}<br />
+                    speed: {speed}<br />
+                    error: {error}
+                        <br />
+                        <span style={{ color: 'red' }}>Godview is an underconstruction geolocation tracking app engineered by Shamim Ferdous!</span>
+                    </code>
                     <br />
                 </div>
 
@@ -70,6 +78,7 @@ const Transporter = ({ watch, settings }) => {
                         <AnyReactComponent
                             lat={latitude}
                             lng={longitude}
+                            info={latitude}
                             text={marker.lat + ', ' + marker.lng + ', ' + timestamp}
                         />
                     </GoogleMap>
@@ -84,4 +93,4 @@ const Transporter = ({ watch, settings }) => {
 export default Transporter;
 
 
-const AnyReactComponent = ({ text }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} </div>;
+const AnyReactComponent = ({ text, info }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} {info} </div>;
