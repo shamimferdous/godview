@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Badge
+    Badge,
+    Statistic
 } from 'antd';
+import { LikeOutlined } from '@ant-design/icons';
 import { usePosition } from '../custom-hooks/usePosition';
 import GoogleMap from 'google-map-react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
-const socket = io('https://godview-server.herokuapp.com');
+import Marker from '../Components/Marker';
+//const socket = io('https://godview-server.herokuapp.com');
+const socket = io(`${process.env.REACT_APP_SERVER}/user`, {
+    query: {
+        foo: 'bar'
+    }
+});
+
+const socketV2 = io(`${process.env.REACT_APP_SERVER}/admin`, {
+    forceNew: true,
+    query: {
+        foo: 'bar'
+    }
+});
+
 
 const Transporter = ({ watch, settings, location }) => {
 
-
-    const [center, setCenter] = useState({
-        lat: 59.95,
-        lng: 30.33
-    });
 
     const [zoom, setZoom] = useState(16);
 
@@ -41,6 +52,7 @@ const Transporter = ({ watch, settings, location }) => {
 
         return () => {
             socket.on('disconnect');
+            socketV2.on('disconnect', 'theboss');
         }
     }, []);
 
@@ -53,42 +65,44 @@ const Transporter = ({ watch, settings, location }) => {
             lng: longitude
         })
 
+        let roomId = location.search.substring(1);
+
 
         let data = {
             lat: latitude,
+            lng: longitude
+        }
+        let data2 = {
+            lat: latitude,
             lng: longitude,
+            username: roomId,
             timestamp: timestamp
         }
 
-        let roomId = location.search.substring(1);
+
         socket.emit('position', roomId, data);
+        socketV2.emit('position', data2);
 
 
     }, [timestamp, latitude, longitude]);
 
 
-    const shamimBhai = () => {
-        setMarker({
-            lat: '1234',
-            lng: '213212'
-        })
-    }
+
     return (
         <>
-            <h1 onClick={shamimBhai}>The new transporter page {marker.lat} , {marker.lng} </h1>
+            {/* <h1 onClick={shamimBhai}>The new transporter page {marker.lat} , {marker.lng} </h1> */}
             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
-                <div style={{ height: '30vh' }}>
-                    <code>
-                        latitude: {latitude}<br />
-                    longitude: {longitude}<br />
-                    timestamp: {timestamp}<br />
-                    accuracy: {accuracy && `${accuracy}m`}<br />
-                    speed: {speed}<br />
-                    error: {error}
-                        <br />
-                        <span style={{ color: 'red' }}>Godview is an underconstruction geolocation tracking app engineered by Shamim Ferdous!</span>
-                    </code>
+                <div style={{ height: '30vh', padding: '2rem 4rem', display: 'flex', flexDirection: 'column', backgroundColor: '#171717' }}>
+                    <Badge style={{ color: 'white' }} status="processing" text={`Latitude: ${latitude}`} />
+                    <Badge style={{ color: 'white' }} status="processing" text={`Longitude: ${longitude}`} />
+                    <Badge style={{ color: 'white' }} status="processing" text={`Timestamp: ${timestamp}`} />
+                    <Badge style={{ color: 'white' }} status="processing" text={`Accuracy: ${accuracy && `${accuracy}m`}`} />
+                    <Badge style={{ color: 'white' }} status="processing" text={`Speed: ${speed}`} />
+                    <br />
+
+                    <span style={{ color: '#1890FF', fontSize: '16px', fontWeight: 700 }}>This is a beta of Godview, which is an under-construction geolocation tracking app engineered by Shamim Ferdous!</span>
+
                     <br />
                 </div>
 
@@ -98,12 +112,13 @@ const Transporter = ({ watch, settings, location }) => {
                         //defaultCenter={center}
                         defaultZoom={zoom}
                         center={marker}
+                        yesIWantToUseGoogleMapApiInternals
                     >
-                        <AnyReactComponent
+                        <Marker
                             lat={latitude}
                             lng={longitude}
-                            info={latitude}
-                            text={marker.lat + ', ' + marker.lng}
+                            username={location.search.substring(1)}
+                            timestamp={timestamp}
                         />
                     </GoogleMap>
                 </div>
@@ -123,4 +138,3 @@ Transporter.propTypes = {
 }
 
 
-const AnyReactComponent = ({ text, info }) => <div className="dot" style={{ color: 'red' }}>  <Badge status="error" /> {text} </div>;

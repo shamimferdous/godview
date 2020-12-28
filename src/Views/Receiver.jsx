@@ -4,9 +4,18 @@ import { useEffect } from 'react';
 import GoogleMap from 'google-map-react';
 import io from 'socket.io-client';
 import { Badge } from "antd";
-const socket = io('https://godview-server.herokuapp.com');
+// const socket = io('https://godview-server.herokuapp.com');
+const socket = io(`${process.env.REACT_APP_SERVER}/user`, {
+    query: {
+        foo: 'bar'
+    }
+});
+
+
 
 const Receiver = ({ location }) => {
+
+    console.log(`Receiver listening`)
 
     const [transporter, setTransporter] = useState({
         lat: 23.955413,
@@ -15,9 +24,9 @@ const Receiver = ({ location }) => {
 
     useEffect(() => {
 
+
         let roomId = location.search.substring(1);
 
-        console.log('Receiver useEffect');
         socket.emit('join-room', roomId);
         socket.on('otherPositions', data => {
             console.log(data);
@@ -26,6 +35,8 @@ const Receiver = ({ location }) => {
                 lng: data.lng
             })
         })
+
+
     }, []);
     return (
         <>
