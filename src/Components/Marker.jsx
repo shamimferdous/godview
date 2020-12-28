@@ -10,7 +10,7 @@ function Marker({ username, lat, lng, timestamp }) {
                 <span className="marker-span">{`Name: ${username}`}</span>
                 <span className="marker-span">{`Latitude: ${lat}`}</span>
                 <span className="marker-span">{`Longitude: ${lng}`}</span>
-                <span className="marker-span">{`Timestamp: ${moment(timestamp).format('MMMM, D YYYY - LT')}`}</span>
+                <span className="marker-span">{`Timestamp: ${timestamp}`}</span>
             </div>
         </div>
     );
