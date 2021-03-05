@@ -76,9 +76,12 @@ const Transporter = ({ watch, settings, location }) => {
             lat: latitude,
             lng: longitude,
             username: roomId,
-            timestamp: timestamp
+            timestamp: timestamp,
+            speed: speed,
+            accuracy: accuracy
         }
 
+        console.log('Checking timestamp', accuracy);
 
         socket.emit('position', roomId, data);
         socketV2.emit('position', data2);
@@ -119,6 +122,8 @@ const Transporter = ({ watch, settings, location }) => {
                             lng={longitude}
                             username={location.search.substring(1)}
                             timestamp={timestamp}
+                            accuracy={accuracy}
+                            speed={speed}
                         />
                     </GoogleMap>
                 </div>

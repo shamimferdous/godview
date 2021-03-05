@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-function Marker({ username, lat, lng, timestamp }) {
+function Marker({ username, lat, lng, timestamp, accuracy, speed }) {
     return (
         <div className="dot" style={{ color: 'red' }}>
 
@@ -11,6 +11,8 @@ function Marker({ username, lat, lng, timestamp }) {
                 <span className="marker-span">{`Latitude: ${lat}`}</span>
                 <span className="marker-span">{`Longitude: ${lng}`}</span>
                 <span className="marker-span">{`Timestamp: ${timestamp}`}</span>
+                <span className="marker-span">{`Accuracy: ${accuracy}`}</span>
+                <span className="marker-span">{`Speed: ${speed}`}</span>
             </div>
         </div>
     );

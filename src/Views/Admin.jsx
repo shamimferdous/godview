@@ -7,7 +7,6 @@ import {
 import Marker from '../Components/Marker';
 import io from 'socket.io-client';
 const socketV2 = io(`${process.env.REACT_APP_SERVER}/admin`, {
-    forceNew: true,
     query: {
         foo: 'bar'
     }
@@ -24,7 +23,8 @@ const Admin = () => {
 
     useEffect(() => {
         socketV2.on('otherPositions', (data) => {
-            console.log(data);
+
+            console.log(data[0].timestamp);
 
             setTransporters(data);
         });
@@ -35,9 +35,6 @@ const Admin = () => {
     }, []);
 
 
-    const shamimBhai = () => {
-        console.log(transporters.length);
-    }
 
     //defining focusOnUser function
     const focusOnUser = (lat, lng) => {
@@ -56,7 +53,7 @@ const Admin = () => {
                 <span style={{ color: '#1890FF', fontSize: '16px', fontWeight: 700 }}>Currect Active User: {transporters.length}</span>
                 {
                     transporters.map(transporter => {
-                        return <a onClick={() => focusOnUser(transporter.lat, transporter.lng)} style={{ textTransform: 'capitalize' }}>{transporter.username}</a>
+                        return <a key={transporter.timestamp} onClick={() => focusOnUser(transporter.lat, transporter.lng)} style={{ textTransform: 'capitalize' }}>{transporter.username}</a>
                     })
                 }
 
@@ -77,6 +74,8 @@ const Admin = () => {
                                 lng={transporter.lng}
                                 username={transporter.username}
                                 timestamp={transporter.timestamp}
+                                accuracy={transporter.accuracy}
+                                speed={transporter.speed}
                             />
                         })
                     }
